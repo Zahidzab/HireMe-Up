@@ -1,127 +1,50 @@
 <?php 
 
 
-require_once('validation.php');
+  require_once('db.php');
+  require_once('header.php');
+
+
+  $records=mysqli_query($con, "select* from studentqualification where sid='".$_GET['id']."'");
+  ?>
+   <<!DOCTYPE html>
+   <html>
+   <head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title></title>
+   </head>
+   <body>
+    <div style="margin-top:80px;">
+    <?php
+     echo "<table class='table table-striped table-hover table-bordered'>";
+        echo "<tr  class='text-capitalize'>";
+        echo "<th class='all-section'>". "Sno"  ."</th>";
+        echo "<th class='all-section'>". "Degree"  ."</th>";
+        echo "<th class='all-section'>". "University/College"  ."</th>";
+        
+        
+        echo "<th class='all-section'>". "Address"  ."</th>";
+        echo "<th class='all-section'>". "Year Of Qualification"  ."</th>";
+        echo "<th class='all-section'>". "CGPA"  ."</th>";
+        echo "</tr>";
+         while($r=mysqli_fetch_assoc($records))
+         {
+            echo "<tr>";
+            echo "<td class='all-data'>".$r['id']. "</td>";
+            echo "<td class='all-data'>".$r['degree']. "</td>";
+            echo "<td class='all-data'>". $r['university']. "</td>";
+            
+            echo "<td class='all-data'>" .$r['address']."</td>";
+            echo "<td class='all-data'>" .$r['year']."</td>";
+            echo "<td class='all-data'>" .$r['cgpa']."</td>";
+            echo "<br>";
+            echo "</tr>";
+         }
+        echo"</table>";
+
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-</head>
-<body>
-    <?php 
-     require_once('bheader.php');
-     require_once('ssession.php');
-     
-        $con=mysqli_connect("localhost","root", "","project");
-        ?>
-       <div id="myself">
-        <h1 style="color: powderblue; text-align:center;">Education Qualification</h1>
-       	
-        <form method="post">
-       	
-       	<div>WHAT IS YOUR DEGREE OR OTHER QUALIFICATION AND MAJOR?</div>
-       	<input type="text" class="both" placeholder="Bachelor of Science" required name="degree" id="inputTextBox"><br><br>
-        
-        <div>WHERE DID YOU EARN YOUR DEGREE/QUALIFICATION?</div>
-       	<input type="text" class="both" placeholder="University of Kashmir" required name="university" id="inputTextBox3"><br><br>
-       	
-        <div>WHERE IS THE INSTITUTE LOCATED?</div>
-        <input type="text" class="both" placeholder="Delina Baramulla" required name="address" id="inputTextBox2"><br><br>
-       	
-        <div>WHEN DID YOU EARN YOUR DEGREE/QUALIFICATION?</div>
-       	<input type="text" class="both" placeholder="2023" required name="year" id="Number"><br><br>
-        
-        <div>DID YOU MINOR IN ANYTHING?</div>
-        <input type="text" class="both" placeholder="8TH SEM" required name="minor" ><br><br>
-        
-        <div>GPA(IF APPLICABLE)</div>
-        <input type="text" class="both" placeholder="6.5 GPA" required name="cgpa" id="Number15"><br><br>
-       	
-        <div>OPEN FIELD FOR ADDITIONAL INFORMATION</div>
-       	<input type="text" class="both" placeholder="Awarded Full Scholarship for 4 years due to grades" required name="additional"><br><br>
-        
-        <button id="bttn" name="btn"><i class="fa fa-user-plus" aria-hidden="true"></i>Add Qualification</button>
-        </form>
-       	
-       	
-
-
-</body>
-</html>
-<style type="text/css">
-	body
-	{
-        background-image: url(1901.jpg);
-
-	}
-	#header
-	{
-      color: black;
-      font-size: 25px;
-      font-weight: 800px;
-      text-align: center;
-    }
-    #myself
-    {
-        background-color: whitesmoke;
-        padding: 20px;
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 110px;
-
-    }
-    .both
-    {
-       width: 100%;
-       height: 30px;
-       
-       outline: none;
-       cursor: progress;
-       background-color: whitesmoke;
-     }
-     #bttn
-     {
-
-     	background-color: black;
-     	width: 100%;
-     	height: 34px;
-     	margin-top: 30px;
-     	cursor: pointer;
-     	color: whitesmoke;
-     	font-size: 19px;
-
-
-     }
-     #bttn:hover
-     {
-     	background-color:green;
-     }
-     #abc
-     {
-     	margin-top: 25px;
-     }
-
-     
-      }
-</style>
-<?php 
-if( isset ($_POST['btn']) )
-   {
-      mysqli_query($con, "insert into studentqualification(degree,university,address,year,minor,cgpa,additional,sid) values(
-                    '".$_POST['degree']."',
-                    '".$_POST['university']."',
-                    '".$_POST['address']."', 
-                     '".$_POST['year']."',
-                     '".$_POST['minor']."',
-                     '".$_POST['cgpa']."',
-                      
-                     '".$_POST['additional']."',
-                    '".$_SESSION['validid']."')");
-         echo "Added Successfully";
-            } 
-?>
+   </div>
+   </body>
+   </html>
+ 

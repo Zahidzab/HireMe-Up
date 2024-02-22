@@ -1,87 +1,41 @@
 <?php 
+
 ob_start();
-
-
 require_once('validation.php');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	
+	<title> LOGIN </title>
 </head>
 <body>
-  <div id="container">
-    <h1 id="h1" > Student Login</h1>
-  <form method="post">
-  <!-- Email input -->
-  <div class="form-outline mb-4">
+<form method="post">
 
-    <input  type="email" id="input[type=email]" class="form-control" name="email" style="margin-top:30px;" / placeholder="Email address">
+	<h1><blockquote> ADMIN LOGIN</blockquote></h1>
+
+	<div id="wrapper"><input type="name" name="email" placeholder="Username,Email or Phone no"  id="input1"></div>
+	<div id="wrapper2"><input type="password" name="password" placeholder="Password" id="input2"></div>
+    <button name="btn"> <i class="fa fa-user" aria-hidden="true"></i> login </button>
     
-  </div>
-
-  <!-- Password input -->
-  <div class="form-outline mb-4">
-    <input type="password"  class="form-control"  name="password" / placeholder="Password">
-   
-  </div>
-
-  <!-- 2 column grid layout for inline styling -->
-  
-
-  <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-block mb-4" name="btn">Sign in</button>
+    
 </form>
-  <!-- Register buttons -->
-  <div class="text-center">
-    <p>Not a member? <a href="studentsignup.php">Register</a></p>
-    <p>or sign up with:</p>
-    <button type="button" class="btn btn-secondary btn-floating mx-1">
-      <i class="fab fa-facebook-f"></i>
-    </button>
-
-    <button type="button" class="btn btn-secondary btn-floating mx-1">
-      <i class="fab fa-google"></i>
-    </button>
-
-    <button type="button" class="btn btn-secondary btn-floating mx-1">
-      <i class="fab fa-twitter"></i>
-    </button>
-
-    <button type="button" class="btn btn-secondary btn-floating mx-1">
-      <i class="fab fa-github"></i>
-    </button>
-  </div>
-
-
-</div>
-
-
-
-</body>
-</html>
-
 <?php 
 
   if(isset($_POST['btn']))
   {
   	   $con=mysqli_connect("localhost", "root","","project");
-  	   $records=mysqli_query($con, "select * from student where email ='".$_POST['email']."' && password ='".$_POST['password']."'&& status ='Active'" );
+  	   $records=mysqli_query($con, "select * from admin where email ='".$_POST['email']."' && password ='".$_POST['password']."'");
 
   	   $t=mysqli_num_rows($records);
   	   if($t== 1)
-        { $r=mysqli_fetch_assoc($records);
+        {
         	session_start();
-        	$_SESSION['validstudent']=$_POST['email'];
-          $_SESSION['validid']=$r['id'];
+        	$_SESSION['validuser']=$_POST['email'];
  
-        	header("location:sdashboard.php");
+        	header("location:dadmin.php");
         }
         else
         {
@@ -96,22 +50,99 @@ require_once('validation.php');
 
 
 
+</body>
+</html>
 
 <style type="text/css">
-	body{
-		background-color: powderblue;
-	}
-	#container{
-		margin-top: 70px;
-  margin-right: 500px;
-	margin-left: 500px;
-  background-color:0AF09D;
-  width: 400px;
-}
-#h1{
-  margin-top: 50px;
- 
-  margin-left: 20px;
+	body
+	{
+		/*background-color: black;*/
+		background-image: url("../images/LOG.jpg");
+		background-repeat: no-repeat;
+		background-size: 100%;
 
-}
-</style>
+	}
+	footer{
+		margin-top: 300px;
+	}
+	
+
+	h1
+	{
+		margin-left: 500px;
+		color:  white;
+		margin-top: 100px;
+	}
+
+	
+    
+    
+    input[type=submit]:hover
+    {
+    	background-color: tomato;
+    }
+    #wrapper
+	{
+		background-color: whitesmoke;
+		padding: 10px;
+		width: 300px;
+		margin-left: 500px;
+		margin-top: 30px;
+		position: relative;
+
+	}
+	#wrapper:before
+	{
+		content: "\f2bb";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+          font-size: 30px;
+		position: absolute;
+		left: 12px;
+		top: 15px;
+		color: black;
+	}
+	#input1
+	{
+		width: 280px;
+		height: 34px;
+		text-indent:  40px;
+	}
+
+	#wrapper2
+	{
+		background-color: whitesmoke;
+		padding: 10px;
+		width: 300px;
+		margin-left: 500px;
+		margin-top: 30px;
+		position: relative;
+	
+	}
+	#wrapper2:before
+	{
+		content: "\f084";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+          font-size: 30px;
+		position: absolute;
+		left: 12px;
+		top: 15px;
+		color: black;
+	}
+	#input2
+	{
+		width: 280px;
+		height: 34px;
+		text-indent:  40px;
+
+	}
+	button
+	{
+		margin-left: 500px;
+		width: 200px;
+		padding: 10px;
+		margin-top: 10px;
+
+	}
+    </style>
